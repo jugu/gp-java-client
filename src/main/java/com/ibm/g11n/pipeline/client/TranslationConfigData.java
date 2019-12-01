@@ -40,6 +40,8 @@ public abstract class TranslationConfigData {
     }
 
     public abstract MTServiceData getMTServiceData();
+    
+    public abstract TMServiceData getTMServiceData();
 
     /**
      * Returns the last user updated this translation configuration.
@@ -116,5 +118,23 @@ public abstract class TranslationConfigData {
         public final Date getUpdatedAt() {
             return updatedAt;
         }
+    }
+    
+    public static abstract class TMServiceData {
+        /**
+         * Protected constructor for a subclass extending <code>TMServiceData</code>.
+         */
+        public TMServiceData() {
+        }
+
+        /**
+         * Returns a map containing optional parameters (key/value pairs) that will
+         * be passed to the translation memory service instance.
+         * 
+         * @return A map containing optional parameters (key/value pairs) that will
+         * be passed to the translation memory service instance.
+         */
+        public abstract Map<String, Object> getParams();
+
     }
 }

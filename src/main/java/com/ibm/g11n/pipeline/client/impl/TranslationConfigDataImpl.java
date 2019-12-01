@@ -45,16 +45,41 @@ class TranslationConfigDataImpl extends TranslationConfigData {
         }
     }
 
-    MTServiceDataImpl mtService;
+    static class TMServiceDataImpl extends TMServiceData {
+        private final Map<String, Object> params;
+ 
+        TMServiceDataImpl(RestTMServiceData restTMService) {
+            super();
+            this.params = restTMService.getParams();
+        }
 
+        @Override
+        public Map<String, Object> getParams() {
+            if (params == null) {
+                return null;
+            }
+            return Collections.unmodifiableMap(params);
+        }
+    }    
+
+    MTServiceDataImpl mtService;
+    TMServiceDataImpl tmService;
+    
     TranslationConfigDataImpl(RestTranslationConfigData restTransConfig) {
         super(restTransConfig.getUpdatedBy(), restTransConfig.getUpdatedAt());
         this.mtService = new MTServiceDataImpl(restTransConfig.getMTService());
+        this.tmService = new TMServiceDataImpl(restTransConfig.getTMService());
     }
 
     @Override
     public MTServiceData getMTServiceData() {
         return mtService;
+    }
+    
+    @Override
+    public TMServiceData getTMServiceData() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     /**
@@ -64,6 +89,7 @@ class TranslationConfigDataImpl extends TranslationConfigData {
      */
     static class RestTranslationConfigData extends RestObject {
         private RestMTServiceData mtService;
+        private RestTMServiceData tmService;
 
         /**
          * No-args constructor used by JSON unmarshaller
@@ -73,6 +99,10 @@ class TranslationConfigDataImpl extends TranslationConfigData {
 
         public RestMTServiceData getMTService() {
             return mtService;
+        }
+
+        public RestTMServiceData getTMService() {
+            return tmService;
         }
     }
 
@@ -100,4 +130,25 @@ class TranslationConfigDataImpl extends TranslationConfigData {
             return params;
         }
     }
+
+    /**
+     * Data object used for deserializing TM service data in translation
+     * config data in JSON.
+     * 
+     * @author Yoshito Umaoka
+     */
+    static class RestTMServiceData extends RestObject {
+        private Map<String, Object> params;
+
+        /**
+         * No-args constructor used by JSON unmarshaller
+         */
+        RestTMServiceData() {
+        }
+
+        public Map<String, Object> getParams() {
+            return params;
+        }
+    }
+
 }

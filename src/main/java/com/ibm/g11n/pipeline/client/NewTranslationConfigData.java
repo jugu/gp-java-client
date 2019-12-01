@@ -27,6 +27,7 @@ import java.util.Map;
  */
 public class NewTranslationConfigData {
     private NewMTServiceData mtService;
+    private NewTMServiceData tmService;
 
     /**
      * Constructor.
@@ -50,6 +51,24 @@ public class NewTranslationConfigData {
      */
     public NewMTServiceData getMTServiceData() {
         return mtService;
+    }
+
+    /**
+     * Returns the translation memory service configuration.
+     *
+     * @return the translation memory service configuration.
+     */
+    public NewTMServiceData getTMServiceData() {
+        return tmService;
+    }
+
+    /**
+     * Sets the translation memory service configuration.
+     *
+     * @param tmService The translation memory service configuration to set.
+     */
+    public void setTMServiceData(NewTMServiceData tmService) {
+        this.tmService = tmService;
     }
 
     /**
@@ -96,6 +115,45 @@ public class NewTranslationConfigData {
          * 
          * @return A map containing optional parameters (key/value pairs) that will
          * be passed to the translation service instance.
+         */
+        public Map<String, Object> getParams() {
+            if (params == null) {
+                return null;
+            }
+            return Collections.unmodifiableMap(params);
+        }
+    }
+
+    /**
+     * <code>NewTMServiceData</code> is used for specifying translation memory
+     * service configuration.
+     *
+     */
+    public static class NewTMServiceData {
+        private Map<String, Object> params;
+
+        /**
+         * Constructor.
+         */
+        public NewTMServiceData() {
+        }
+
+        /**
+         * Sets optional parameters (key/value pairs) that will be passed to
+         * the translation memory service instance.
+         *
+         * @param params    The optional parameters (key/value pairs).
+         */
+        public void setParams(Map<String, Object> params) {
+            this.params = new HashMap<>(params);
+        }
+
+        /**
+         * Returns a map containing optional parameters (key/value pairs) that will
+         * be passed to the translation memory service instance.
+         *
+         * @return A map containing optional parameters (key/value pairs) that will
+         * be passed to the translation memory service instance.
          */
         public Map<String, Object> getParams() {
             if (params == null) {
